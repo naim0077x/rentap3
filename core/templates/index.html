@@ -1,0 +1,248 @@
+{% extends 'base.html' %} <!-- This must be the first line -->
+{% load static %}
+
+{% block title %}rentahouses|Best Housing Solutions{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background-image: url('{% static "images/herosample.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        width: 100vw;
+    }   
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Heebo:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<!-- Hero Section -->
+<div id="particles-js"></div>
+<section class="hero">
+    <div class="hero-content">
+        <h1>Best Rental Homes Across USA</h1>
+        <p>Experience luxury living with our curated selection of high-end rental properties</p>
+        <!-- Update the CTA button in HTML -->
+        <div class="trust-badges">
+            <div class="badge">
+                <i class="fas fa-shield-alt"></i>
+                <span>256-bit SSL Encryption</span>
+            </div>
+            <div class="badge">
+                <i class="fas fa-lock"></i>
+                <span>Secure Application</span>
+            </div>
+            <div class="badge">
+                <i class="fas fa-clock"></i>
+                <span>5-min Process</span>
+            </div>
+        </div>
+        {% if tracking_code %}
+            <a href="{% url 'apply' %}?ref={{ tracking_code }}" class="cta-button">
+                <i class="fas fa-file-signature"></i>
+                <span class="btn-text">Apply Now</span>
+                <span class="btn-dots"></span>
+            </a>
+        {% else %}
+            <a href="{% url 'apply' %}" class="cta-button">
+                <i class="fas fa-file-signature"></i>
+                <span class="btn-text">Apply Now</span>
+                <span class="btn-dots"></span>
+            </a>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Add this after the hero section -->
+
+<!-- Add this after the trust badges -->
+<div class="benefits-card" style="background-color: var(--secondary-color); width: 100%; height: 100%; padding-top: 20px; padding-bottom: 20px;">
+<div class="benefits-section">
+    <div class="benefit-card">
+        <i class="fas fa-rocket"></i>
+        <h3>Fast Processing</h3>
+        <p>Get approved within 24-48 hours</p>
+    </div>
+    <div class="benefit-card">
+        <i class="fas fa-check-circle"></i>
+        <h3>High Approval Rate</h3>
+        <p>98% application success rate</p>
+    </div>
+    <div class="benefit-card">
+        <i class="fas fa-headset"></i>
+        <h3>24/7 Support</h3>
+        <p>Always here to help you</p>
+    </div>
+</div>
+</div>
+
+<!-- Add this before the properties section -->
+<div class="process-card" style="background-color: var(--secondary-color); width: 100%; height: 100%;padding-top: 20px; padding-bottom: 20px;">
+<div class="process-section">
+    <h2>Application Process</h2>
+    <div class="process-timeline">
+        <div class="timeline-item">
+            <div class="timeline-icon">1</div>
+            <div class="timeline-content">
+                <h3>Submit Application</h3>
+                <p>Fill out the form with required information</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-icon">2</div>
+            <div class="timeline-content">
+                <h3>Document Review</h3>
+                <p>We verify your submitted documents</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-icon">3</div>
+            <div class="timeline-content">
+                <h3>Background Check</h3>
+                <p>Quick verification process</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-icon">4</div>
+            <div class="timeline-content">
+                <h3>Final Approval</h3>
+                <p>Get your keys and move in!</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Add this before the contact section -->
+<div class="faq-card" style="background-color: var(--secondary-color); width: 100%; height: 100%; padding-top: 20px; padding-bottom: 20px;">
+<div class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-grid">
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>What is the typical approval time?</h3>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Most applications are processed within 24-48 hours after submission of all required documents.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>What documents do I need?</h3>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>You'll need valid ID, proof of income, bank statements, and references from previous landlords.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <h3>Is my information secure?</h3>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Yes, we use bank-level encryption to protect all your personal information.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Features Section -->
+<section class="section">
+    <div class="section-title">
+        <h2>Why Choose Us</h2>
+        <p>50+ real estate professionals with 1000s of 5-star reviews</p>
+    </div>
+    <div class="features-grid">
+        <div class="feature-card">
+            <i class="fas fa-star feature-icon"></i>
+            <h3>Luxury Properties</h3>
+            <p>Exclusive selection of premium homes and apartments</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-shield-alt feature-icon"></i>
+            <h3>Full Security</h3>
+            <p>24/7 monitored properties with premium insurance</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-concierge-bell feature-icon"></i>
+            <h3>Premium Services</h3>
+            <p>Concierge services and professional property management</p>
+        </div>
+    </div>
+</section>
+
+<!-- Properties Section -->
+<section class="section">
+    <div class="section-title">
+        <h2>Featured Properties</h2>
+        <p>Explore our exclusive rental listings</p>
+    </div>
+
+    <div class="properties-grid">
+        <div class="property-card">
+            <img src="{% static 'images/p1.jpg' %}" alt="Luxury Penthouse">
+            <div class="property-info">
+                <h3>Downtown Penthouse</h3>
+                <div class="property-price">$4,500/month</div>
+                <p>3 beds · 3 baths · 2,800 sqft</p>
+                <br>
+                <a href="#" class="cta-button">Take it now!</a>
+            </div>
+        </div>
+
+        <div class="property-card">
+            <img src="{% static 'images/p2.jpg' %}" alt="Luxury Penthouse">
+            <div class="property-info">
+                <h3>Downtown Penthouse</h3>
+                <div class="property-price">$4,500/month</div>
+                <p>3 beds · 3 baths · 2,800 sqft</p>
+                <br>
+                <a href="#" class="cta-button">Take it now!</a>
+            </div>
+        </div>
+
+        <div class="property-card">
+            <img src="{% static 'images/px.png' %}" alt="Modern Villa">
+            <div class="property-info">
+                <h3>Modern Luxury Villa</h3>
+                <div class="property-price">$6,200/month</div>
+                <p>4 beds · 4.5 baths · 3,500 sqft</p>
+                <br>
+                <a href="#" class="cta-button">Take it now!</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="section">
+    <div class="section-title">
+        <h2>Contact Us</h2>
+        <p>Get in touch with our premium support team</p>
+    </div>
+    <div class="contact-grid">
+        <div class="contact-info">
+            <h3>Premium Support</h3>
+            <p>📞 +1 (456) 678-6786</p>
+            <p>📧 rentahouses@gmail.com</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+        <form class="contact-form">
+            <div class="bb" style="display: flex; gap: 20px;">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+            </div>
+            <textarea style="height: 55px;" placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit" class="cta-button">Send Message</button>
+        </form>
+    </div>
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,105 @@
+{% load static %}  <!-- This is required for using static files -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Find your perfect rental home with rentahouse. Best housing options with flexible financing across the United States.">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Heebo:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+    <title>{% block title %}My Website{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">  <!-- Now it will work -->
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <div id="particles-js"></div>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="{% url 'index' %}"><img src="{% static 'images/icon.png' %}" alt="Rent A House"></a>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li>
+                    {% if tracking_code %}
+                    <a href="{% url 'apply' %}?ref={{ tracking_code }}">
+                        Apply Now
+                    </a>
+                    {% else %}
+                    <a href="{% url 'apply' %}">
+                        Apply Now
+                    </a>
+                    {% endif %}
+                </li>
+                <li><a href="{% url 'apply' %}">Contact</a></li>
+            </ul>
+    
+            <div class="hamburger">☰</div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>USA Homes Rental</h4>
+                <p>Redefining luxury living since 2012</p>
+                <br>
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Luxury Avenue, NYC 10001</p>
+                    <p><i class="fas fa-phone"></i> +1 (888) 888-8888</p>
+                    <p><i class="fas fa-envelope"></i> info@rentahous.com</p>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Our Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#luxury-rentals"><i class="fas fa-chevron-right"></i> Luxury Rentals</a></li>
+                    <li><a href="#property-management"><i class="fas fa-chevron-right"></i> Property Management</a></li>
+                    <li><a href="#consulting"><i class="fas fa-chevron-right"></i> Real Estate Consulting</a></li>
+                    <li><a href="#investment"><i class="fas fa-chevron-right"></i> Investment Properties</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="#privacy"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                    <li><a href="#terms"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                    <li><a href="#licenses"><i class="fas fa-chevron-right"></i> Licenses</a></li>
+                    <li><a href="#accessibility"><i class="fas fa-chevron-right"></i> Accessibility</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                </div>
+                <div class="business-hours">
+                    <p><strong>Office Hours:</strong></p>
+                    <p>Mon-Fri: 9AM - 7PM EST</p>
+                    <p>Sat: 10AM - 5PM EST</p>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2025 Rent A House . All rights reserved. | Equal Housing Opportunity</p>
+        </div>
+    </footer>
+    {% block extra_scripts %}{% endblock %}
+
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>

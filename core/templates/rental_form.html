@@ -1,0 +1,757 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Rental Application Form{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero"
+    style="background: linear-gradient(rgba(15, 23, 33, 0.8), rgba(15, 23, 33, 0.6)), url('{% static 'images/p3.jpg' %}') center/cover no-repeat fixed;">
+    <div id="particles-js"></div>
+    <div class="hero-content">
+        <h1 style=" color: var(--primary-color)">Apply For Your Dream Home</h1>
+        <p>Complete the rental application, and we will get in touch with you soon.</p>
+        <br>
+    </div>
+</section>
+
+<!-- Include the International Telephone Input CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+
+<!-- Include the International Telephone Input JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+<!-- Rental Form -->
+<div class="container">
+    <h2 class="section-title">Rental Request Form</h2>
+    {% if messages %}
+    <br>
+    <br>
+    <ul class="messages">
+        {% for message in messages %}
+        <h1 style="color: #04B16D;" class="{{ message.tags }}">{{ message }}</h1>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data" class="rental-form" id="rentalForm">
+        {% csrf_token %}
+
+        <br> 
+        <h3>Rental Application</h3>
+        <p>Take the first step towards your dream home.</p>
+        <br>
+        <div class="form-group">
+            <label for="{{ form.move_in_date.id_for_label }}">Move-in Date: <span style="font-size: 12px; opacity: 0.6">(important)</span></label>
+            {{ form.move_in_date }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.applying_as.id_for_label }}">Applying as: <span style="font-size: 12px; opacity: 0.6">(I am applying as a guarantor or a tenant)</span></label>
+            {{ form.applying_as }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.first_name.id_for_label }}">First Name: <span style="font-size: 12px; opacity: 0.6">(important)</span></label>
+            {{ form.first_name }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.last_name.id_for_label }}">Last Name: <span style="font-size: 12px; opacity: 0.6">(important)</span></label>
+            {{ form.last_name }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.date_of_birth.id_for_label }}">Date of Birth: <span style="font-size: 12px; opacity: 0.6">(important)</span></label>
+            {{ form.date_of_birth }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.social_security_number.id_for_label }}">Social Security Number: <span style="font-size: 12px; opacity: 0.6">(important)</span></label>
+            {{ form.social_security_number }}
+        </div>
+
+        <div class="form-group phone-input" style="width: 100%;">
+            <div style="width: 100%;">
+                <label for="{{ form.phone_number.id_for_label }}">Phone Number: <span style="font-size: 12px; opacity: 0.6"> <i class="fa-solid fa-flag-usa"></i>(+1 ***-***-****)</span></label>
+                {{ form.phone_number }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">Email: <span style="font-size: 12px; opacity: 0.6">(important)</span></label>
+            {{ form.email }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.current_address.id_for_label }}">Current Address:<span style="font-size: 12px; opacity: 0.6">(important)</span></label>
+            {{ form.current_address }}
+        </div>
+
+        <div class="address-grid">
+            <div class="form-group">
+                <label for="{{ form.city.id_for_label }}">City: <span style="font-size: 12px; opacity: 0.6">(important)</span></label>
+                {{ form.city }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.state_province.id_for_label }}">State/Province: <span style="font-size: 12px; opacity: 0.6">(important)</span></label>
+                {{ form.state_province }}
+            </div>
+        </div>
+
+        <div class="address-grid">
+            <div class="form-group">
+                <label for="{{ form.zip_postal_code.id_for_label }}">ZIP/Postal Code: <span style="font-size: 12px; opacity: 0.6">(important)</span></label>
+                {{ form.zip_postal_code }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.country.id_for_label }}">Country: <span style="font-size: 12px; opacity: 0.6">(important)</span></label>
+                {{ form.country }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.employer_name.id_for_label }}">Employer Name: <span style="font-size: 12px; opacity: 0.6">(Optional)</span></label>
+            {{ form.employer_name }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.job_title.id_for_label }}">Job Title: <span style="font-size: 12px; opacity: 0.6">(Optional)</span></label>
+            {{ form.job_title }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.monthly_income.id_for_label }}">Monthly Income: <span style="font-size: 12px; opacity: 0.6">(important)</span></label>
+            {{ form.monthly_income }}
+        </div>
+
+        <!-- ID Proof Front -->
+        <div class="minimal-upload-section">
+            <div class="form-group">
+                <div class="upload-header">
+                    <i class="fas fa-id-card"></i>
+                    <span>Driver's License/State ID card: <span style="font-size: 12px; opacity: 0.6">(important)</span></span>
+                </div>
+                <div class="minimal-file-input">
+                    <input type="file" id="{{ form.id_proof_front.id_for_label }}" name="{{ form.id_proof_front.html_name }}"
+                        accept="image/*" class="file-input">
+                    <label for="{{ form.id_proof_front.id_for_label }}" class="minimal-button">
+                        <i class="fas fa-upload"></i> Upload Front part of your ID
+                    </label>
+                </div>
+                <img id="idProofFrontPreview" class="minimal-preview" style="display: none;">
+            </div>
+        </div>
+
+        <!-- ID Proof Back -->
+        <div class="minimal-upload-section">
+            <div class="form-group">
+                <div class="upload-header">
+                    <i class="fas fa-id-card"></i>
+                    <span>Driver's License/State ID card: <span style="font-size: 12px; opacity: 0.6">(important)</span></span>
+                </div>
+                <div class="minimal-file-input">
+                    <input type="file" id="{{ form.id_proof_back.id_for_label }}" name="{{ form.id_proof_back.html_name }}"
+                        accept="image/*" class="file-input">
+                    <label for="{{ form.id_proof_back.id_for_label }}" class="minimal-button">
+                        <i class="fas fa-upload"></i> Upload Back part of your ID
+                    </label>
+                </div>
+                <img id="idProofBackPreview" class="minimal-preview" style="display: none;">
+            </div>
+        </div>
+
+        <!-- Selfie Photo -->
+        <div class="minimal-upload-section">
+            <div class="form-group">
+                <div class="upload-header">
+                    <i class="fas fa-camera"></i>
+                    <span>Your Photo: <span style="font-size: 12px; opacity: 0.6">(important)</span></span>
+                </div>
+                <div class="minimal-file-input">
+                    <input type="file" id="{{ form.photo_selfie.id_for_label }}" name="{{ form.photo_selfie.html_name }}"
+                        accept="image/*" class="file-input">
+                    <label for="{{ form.photo_selfie.id_for_label }}" class="minimal-button">
+                        <i class="fas fa-upload"></i> Upload Your Selfie
+                    </label>
+                </div>
+                <img id="photoSelfiePreview" class="minimal-preview" style="display: none;">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.references.id_for_label }}">References: <span style="font-size: 12px; opacity: 0.6">(Optional)</span></label>
+            {{ form.references }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.additional_comments.id_for_label }}">Additional Comments: <span style="font-size: 12px; opacity: 0.6">(Optional)</span></label>
+            {{ form.additional_comments }}
+        </div>
+
+        <button type="submit" class="submit-button">
+            <i class="fas fa-paper-plane"></i> Submit Application
+        </button>
+    </form>
+</div>
+
+<!-- Auto Scroll Script -->
+<script>
+    window.onload = function () {
+        setTimeout(function () {
+            window.scrollBy({ top: window.innerHeight * 0.25, behavior: 'smooth' });
+        }, 1500);
+    };
+
+    // Form validation
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.getElementById('rentalForm');
+        const submitButton = form.querySelector('.submit-button');
+
+        // Add required attribute to all important fields
+        form.querySelectorAll('label').forEach(label => {
+            if (label.textContent.includes('(important)')) {
+                const inputId = label.getAttribute('for');
+                const input = document.getElementById(inputId);
+                if (input) {
+                    input.required = true;
+                    input.classList.add('required-field');
+                }
+            }
+        });
+
+        // Validate file inputs before submission
+        form.addEventListener('submit', function(e) {
+            const idFront = document.getElementById('{{ form.id_proof_front.id_for_label }}');
+            const idBack = document.getElementById('{{ form.id_proof_back.id_for_label }}');
+            const selfie = document.getElementById('{{ form.photo_selfie.id_for_label }}');
+            
+            if (!idFront.files.length || !idBack.files.length || !selfie.files.length) {
+                e.preventDefault();
+                alert('Please upload all required ID and photo documents.');
+                return false;
+            }
+        });
+
+        // Show validation message on file inputs
+        const fileInputs = document.querySelectorAll('.file-input');
+        fileInputs.forEach(input => {
+            input.addEventListener('invalid', function(e) {
+                e.preventDefault();
+                this.parentElement.classList.add('invalid-input');
+            });
+            
+            input.addEventListener('change', function() {
+                this.parentElement.classList.remove('invalid-input');
+            });
+        });
+    });
+
+    // Simple file preview function
+    function setupFilePreview(inputId, previewId) {
+        const fileInput = document.getElementById(inputId);
+        const previewImage = document.getElementById(previewId);
+        const fileName = fileInput.parentElement.querySelector('.file-name');
+
+        fileInput.addEventListener("change", function () {
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    previewImage.src = e.target.result;
+                    previewImage.style.display = "block";
+                };
+                reader.readAsDataURL(this.files[0]);
+                fileName.textContent = this.files[0].name;
+            }
+        });
+    }
+
+    // Initialize file preview for each file input
+    document.addEventListener("DOMContentLoaded", function () {
+        setupFilePreview("{{ form.id_proof_front.id_for_label }}", "idProofFrontPreview");
+        setupFilePreview("{{ form.id_proof_back.id_for_label }}", "idProofBackPreview");
+        setupFilePreview("{{ form.photo_selfie.id_for_label }}", "photoSelfiePreview");
+
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            initialCountry: "us", // Set default country to US
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+        });
+    });
+</script>
+
+<style>
+    :root {
+        --primary-color: #24b77f;
+        --secondary-color: #0F1721;
+        --accent-color: #04B16D;
+        --text-color: #E0E0E0;
+        --dark-bg: #0F1721;
+        --medium-bg: #1A212B;
+        --card-bg: #1E2732;
+        --white: #FFFFFF;
+    }
+
+    body {
+        color: var(--text-color);
+        background-color: var(--secondary-color);
+        line-height: 1.7;
+        font-size: 16px;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /* Headings */
+    h1,
+    h2 {
+        color: var(--white);
+        margin-bottom: 20px;
+    }
+
+    /* Hero Section */
+    .hero {
+        min-height: 70vh;
+        max-height: 70vh;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: linear-gradient(rgba(15, 23, 33, 0.8), rgba(15, 23, 33, 0.6));
+    }
+
+    #particles-js {
+        position: absolute;
+        width: 100%;
+        height: 70vh; /* Set to 70% of viewport height */
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+
+    .hero-content {
+        z-index: 2;
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+        color: var(--white);
+        text-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        color: var(--white);
+        max-width: 600px;
+        margin: 0 auto;
+        opacity: 0.8;
+    }
+
+    /* Form Container */
+    .container {
+        width: 80%;
+        margin: -150px auto 40px;
+        background: var(--medium-bg);
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Form Group */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        color: var(--white);
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    /* Input Fields */
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        background: var(--card-bg);
+        color: var(--text-color);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        border-color: var(--primary-color);
+        outline: none;
+    }
+
+    /* Phone Input Styling */
+    .phone-input {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    /* International Phone Input */
+    .intl-tel-input {
+        width: 100%;
+    }
+
+    .intl-tel-input .flag-container {
+        padding: 0 10px 0 15px;
+    }
+
+    .intl-tel-input .selected-flag {
+        background: var(--card-bg);
+        border-radius: 8px 0 0 8px;
+    }
+
+    /* Drag and Drop File Upload */
+    .file-upload {
+        border: 2px dashed rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        background: var(--card-bg);
+        transition: all 0.3s ease-in-out;
+        position: relative;
+    }
+
+    .file-upload:hover {
+        border-color: var(--primary-color);
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .file-upload input {
+        display: none;
+    }
+
+    .file-upload p {
+        color: var(--text-color);
+        font-size: 16px;
+        margin: 10px 0 0;
+    }
+
+    /* File Upload Styling */
+    .file-input-container {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .file-input {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
+
+    .file-input-button {
+        display: inline-flex;
+        align-items: center;
+        padding: 12px 20px;
+        background: var(--primary-color);
+        color: var(--white);
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        border: none;
+    }
+
+    .file-input-button:hover {
+        background: var(--accent-color);
+        transform: translateY(-2px);
+    }
+
+    .file-input-button i {
+        margin-right: 8px;
+        font-size: 18px;
+    }
+
+    .file-name {
+        flex: 1;
+        color: var(--text-color);
+        opacity: 0.7;
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0 10px;
+    }
+
+    /* Label icons */
+    .form-group label i {
+        margin-right: 8px;
+        color: var(--primary-color);
+    }
+
+    /* Image Preview Styling */
+    .image-preview {
+        max-width: 100%;
+        height: 150px;
+        margin-top: 15px;
+        border-radius: 5px;
+        align-items: center;
+        justify-content: center;
+        display: block;
+        object-fit: cover;
+    }
+
+    /* Submit Button */
+    .submit-button {
+        background: var(--primary-color);
+        color: var(--white);
+        padding: 16px 45px;
+        border-radius: 8px;
+        font-size: 18px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .submit-button:hover {
+        background: var(--accent-color);
+        transform: translateY(-2px);
+    }
+
+    .submit-button i {
+        margin-right: 8px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .container {
+            width: 95%;
+            padding: 30px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .hero p {
+            font-size: 1rem;
+        }
+
+        .submit-button {
+            padding: 12px 30px;
+            font-size: 16px;
+        }
+    }
+
+    /* Date Picker Dark Theme */
+    .datepicker {
+        background-color: var(--medium-bg);
+        color: var(--text-color);
+        border: 1px solid var(--card-bg);
+    }
+
+    .datepicker table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .datepicker table th,
+    .datepicker table td {
+        padding: 10px;
+        text-align: center;
+    }
+
+    .datepicker table th {
+        background-color: var(--card-bg);
+        color: var(--white);
+    }
+
+    .datepicker table td {
+        background-color: var(--medium-bg);
+        color: var(--text-color);
+    }
+
+    .datepicker table td:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+    }
+
+    .datepicker .active {
+        background-color: var(--accent-color);
+        color: var(--white);
+    }
+
+    .datepicker .today {
+        background-color: var(--primary-color);
+        color: var(--white);
+    }
+
+    .datepicker .clear,
+    .datepicker .today {
+        color: var(--primary-color);
+        cursor: pointer;
+    }
+
+    .datepicker .clear:hover,
+    .datepicker .today:hover {
+        color: var(--accent-color);
+    }
+
+    /* Minimal Upload Section Styling */
+    .minimal-upload-section {
+        margin-bottom: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 20px;
+    }
+
+    .upload-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+        color: var(--white);
+    }
+
+    .upload-header i {
+        color: var(--primary-color);
+        font-size: 20px;
+    }
+
+    .upload-header span {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .minimal-file-input {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .file-input {
+        display: none;
+    }
+
+    .minimal-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: transparent;
+        color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.2s ease;
+    }
+
+    .minimal-button:active {
+        background: var(--card-bg);
+        color: var(--white);
+    }
+
+
+    .minimal-button:hover {
+        color: var(--white);
+        box-shadow: 0 0 10px var(--accent-color);
+    }
+
+    .minimal-button i {
+        font-size: 16px;
+    }
+
+    .minimal-preview {
+        max-width: 200px;
+        height: 120px;
+        margin-top: 15px;
+        border-radius: 4px;
+        object-fit: cover;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Required Field Styling */
+    .required-field {
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .required-field:invalid {
+        border-color: #ff4444;
+    }
+
+    .required-field:valid {
+        border-color: var(--primary-color);
+    }
+
+    .invalid-input {
+        animation: shake 0.5s;
+    }
+
+    .invalid-input .minimal-button {
+        border-color: #ff4444;
+        color: #ff4444;
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-10px); }
+        75% { transform: translateX(10px); }
+    }
+
+    /* Update minimal button style for required state */
+    .minimal-button {
+        position: relative;
+    }
+
+    .minimal-button::after {
+        content: '*';
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        color: var(--primary-color);
+        font-size: 18px;
+        display: none;
+    }
+
+    .required-field ~ .minimal-button::after {
+        display: block;
+    }
+
+    /* Improve focus states for accessibility */
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus,
+    .minimal-button:focus {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+    }
+
+    /* Update submit button for disabled state */
+    .submit-button:disabled {
+        background: #666;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .submit-button:disabled:hover {
+        background: #666;
+        transform: none;
+    }
+</style>
+{% endblock %}
